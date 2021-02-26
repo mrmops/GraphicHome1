@@ -46,16 +46,28 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Circle.cs" />
+        <Compile Include="FigureFactory\CircleFactory.cs" />
+        <Compile Include="FigureFactory\CustomPolygonFactory.cs" />
+        <Compile Include="FigureFactory\DrawableFactory.cs" />
+        <Compile Include="FigureFactory\IDrawableFactory.cs" />
+        <Compile Include="FigureFactory\LineFactory.cs" />
+        <Compile Include="FigureFactory\NormalPolygonFactory.cs" />
+        <Compile Include="Figures\Circle.cs" />
+        <Compile Include="Figures\CustomPolygon.cs" />
+        <Compile Include="Figures\IDrawable.cs" />
+        <Compile Include="Figures\Line.cs" />
+        <Compile Include="Figures\NormalPolygon.cs" />
         <Compile Include="Form1.cs">
             <SubType>Form</SubType>
         </Compile>
         <Compile Include="Form1.Designer.cs">
             <DependentUpon>Form1.cs</DependentUpon>
         </Compile>
-        <Compile Include="IDrawable.cs" />
-        <Compile Include="IntInput.cs" />
-        <Compile Include="Line.cs" />
+        <Compile Include="Inputs\ColorInput.cs" />
+        <Compile Include="Inputs\IntInput.cs" />
+        <Compile Include="Inputs\ListPointInput.cs" />
+        <Compile Include="Inputs\PointInput.cs" />
+        <Compile Include="Inputs\StringInput.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <EmbeddedResource Include="Form1.resx">

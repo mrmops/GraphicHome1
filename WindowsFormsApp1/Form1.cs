@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WindowsFormsApp1
@@ -13,44 +8,78 @@ namespace WindowsFormsApp1
     public partial class Form1 : Form
     {
         private Graphics _pictureBoxGraphics;
-        private IDrawableFactory drawableFactory;
+        private IDrawableFactory _selectedDrawableFactory;
+
+        private readonly IDrawableFactory[] _drawableFactories = {
+            new LineFactory(),
+            new CircleFactory(),
+            new CustomPolygonFactory(),
+            new NormalPolygonFactory()
+        };
+        private Stack<IDrawable> _figures = new Stack<IDrawable>();
 
         public Form1()
         {
             InitializeComponent();
-            drawableFactory = new LineFactory("Line");
+            comboBox1.Items.AddRange(_drawableFactories);
+            comboBox1.SelectedValueChanged += OnSelectDrawableFactory;
+            comboBox1.SelectedIndex = 0;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void OnSelectDrawableFactory(object sender, EventArgs e)
         {
-            // var x1 = int.Parse(textBox1.Text);
-            // var y1 = int.Parse(textBox2.Text);
-            // var radius = int.Parse(textBox3.Text);
-            // //var y2 = int.Parse(textBox4.Text);
-            // int width = 0;
-            // if (!string.IsNullOrEmpty(textBox4.Text))
-            //     width = int.Parse(textBox4.Text);
-            //
-            // var beginPoint = new Point(x1, y1);
-            // //var endPoint = new Point(radius, y2);
-            // // _line = new Line(beginPoint, endPoint, Color.Crimson, width);
-            // // _line.Draw(_pictureBoxGraphics);
-
-            var drawable = drawableFactory.CreateNew();
-            drawable.Draw(_pictureBoxGraphics);
+            _selectedDrawableFactory = _drawableFactories[comboBox1.SelectedIndex];
+            InitGraphicsButton.Enabled = true;
+            DrawButton.Enabled = false;
+            UpdateFactoryControls();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void OnInitGraphicsClick(object sender, EventArgs e)
         {
             _pictureBoxGraphics = pictureBox1.CreateGraphics();
-            button1.Enabled = false;
-            groupBox4.Controls.AddRange(drawableFactory.GetControls());
+            InitGraphicsButton.Enabled = false;
+            DrawButton.Enabled = true;
+            UpdateFactoryControls();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void UpdateFactoryControls()
         {
-            var drawable = drawableFactory.CreateNew();
-            drawable.Hide(_pictureBoxGraphics, BackColor);
+            groupBox4.Controls.Clear();
+            groupBox4.Controls.AddRange(_selectedDrawableFactory.GetControls().ToArray());
+        }
+
+        private void OnDrawButtonClick(object sender, EventArgs e)
+        {
+            try
+            {
+                var drawable = _selectedDrawableFactory.CreateNew();
+                drawable.Draw(_pictureBoxGraphics);
+                _figures.Push(drawable);
+                UpdateFactoryControls();
+            }
+            catch (Exception exception)
+            {
+                groupBox3.Controls.Clear();
+                groupBox3.Controls.Add(new Label()
+                {
+                    Text = exception.Message,
+                    AutoSize = true,
+                    ForeColor = Color.Red
+                });
+            }
+        }
+
+        private void OnHideGraphicsClick(object sender, EventArgs e)
+        {
+            if(_figures.Count != 0)
+            {
+                var drawable = _figures.Pop();
+                drawable.Hide(_pictureBoxGraphics, BackColor);
+                foreach (var figure in _figures)
+                {
+                    figure.Draw(_pictureBoxGraphics);
+                }
+            }
         }
     }
 }
