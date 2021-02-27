@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace WindowsFormsApp1
@@ -29,8 +30,6 @@ namespace WindowsFormsApp1
         private void OnSelectDrawableFactory(object sender, EventArgs e)
         {
             _selectedDrawableFactory = _drawableFactories[comboBox1.SelectedIndex];
-            InitGraphicsButton.Enabled = true;
-            DrawButton.Enabled = false;
             UpdateFactoryControls();
         }
 
@@ -39,7 +38,6 @@ namespace WindowsFormsApp1
             _pictureBoxGraphics = pictureBox1.CreateGraphics();
             InitGraphicsButton.Enabled = false;
             DrawButton.Enabled = true;
-            UpdateFactoryControls();
         }
 
         private void UpdateFactoryControls()
@@ -75,7 +73,7 @@ namespace WindowsFormsApp1
             {
                 var drawable = _figures.Pop();
                 drawable.Hide(_pictureBoxGraphics, BackColor);
-                foreach (var figure in _figures)
+                foreach (var figure in _figures.Reverse())
                 {
                     figure.Draw(_pictureBoxGraphics);
                 }
