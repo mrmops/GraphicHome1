@@ -4,23 +4,23 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
-    public class ColorInput : InputInfo<Color>
+    public class ColorInput : Input<Color>
     {
         private readonly ColorDialog _colorDialog = new ColorDialog();
-        private readonly Button colorOn = new Button(){Text = "Цвет", ForeColor = Color.Blue};
+        private readonly Button _button = new Button(){Text = "Цвет", ForeColor = Color.Black};
         public ColorInput(string name) : base(name)
         {
-            colorOn.Click += onColorPickerButtonClick;
+            _button.Click += OnColorPickerButtonClick;
         }
 
-        private void onColorPickerButtonClick(object sender, EventArgs e)
+        private void OnColorPickerButtonClick(object sender, EventArgs e)
         {
             if (_colorDialog.ShowDialog() == DialogResult.OK)
-                colorOn.ForeColor = _colorDialog.Color;
+                _button.ForeColor = _colorDialog.Color;
         }
 
         public override Color ParseValue() => _colorDialog.Color;
 
-        public override Control[] GetControls() => new Control[] {colorOn};
+        public override Control[] GetControls() => new Control[] {_button};
     }
 }

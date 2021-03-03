@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
-    public class IntInput: InputInfo<int>
+    public class IntInput: Input<int>
     {
         private TextBox _textBox = new TextBox();
         

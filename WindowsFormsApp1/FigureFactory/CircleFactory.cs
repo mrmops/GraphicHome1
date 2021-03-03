@@ -4,12 +4,12 @@ namespace WindowsFormsApp1
 {
     public class CircleFactory : DrawableFactory<Circle>
     {
-        private readonly PointInput _center = new PointInput("Center x, y");
-        private readonly IntInput _radius = new IntInput("radius");
-        private readonly StringInput _name = new StringInput("name");
-        private readonly IntInput _width = new IntInput("width");
-        private readonly ColorInput _fillColor = new ColorInput("fill color");
-        private readonly ColorInput _strokeColor = new ColorInput("stroke color");
+        private readonly PointInput _center = new PointInput("Центр x, y");
+        private readonly IntInput _radius = new IntInput("Радиус");
+        private readonly StringInput _name = new StringInput("Подпись в центре");
+        private readonly IntInput _width = new IntInput("Ширина обводки");
+        private readonly ColorInput _fillColor = new ColorInput("Цвет заполнения");
+        private readonly ColorInput _strokeColor = new ColorInput("Цвет обводки");
 
         protected override IInput[] Inputs => new IInput[]
         {

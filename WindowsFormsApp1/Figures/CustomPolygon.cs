@@ -4,32 +4,52 @@ using System.Linq;
 
 namespace WindowsFormsApp1
 {
-    public class CustomPolygon: IDrawable
+    public class CustomPolygon: Figure
     {
-        private List<Point> _points;
+        protected override Point Center { get; set; }
+        private Point[] _points;
         private Color _color;
         private int _width;
 
         public CustomPolygon(List<Point> points, Color color, int width)
         {
-            _points = points;
+            Center = FindCenter(points);
+            _points = TranslatePoints(points);
             _color = color;
             this._width = width;
         }
 
-        public void Draw(Graphics g)
+        private Point[] TranslatePoints(List<Point> points)
+        {
+            return points.Select(point => new Point(point.X - Center.X, point.Y - Center.Y)).ToArray();
+        }
+
+        private Point FindCenter(List<Point> points)
+        {
+            var sumX = 0;
+            var sumY = 0;
+            foreach (var point in points)
+            {
+                sumX += point.X;
+                sumY += point.Y;
+            }
+
+            return new Point(sumX / points.Count, sumY / points.Count);
+        }
+
+        protected override void DrawFigure(Graphics g)
         {
             DrawMe(g, _color);
         }
 
-        public void Hide(Graphics g, Color backColor)
+        protected override void HideFigure(Graphics g, Color backColor)
         {
             DrawMe(g, backColor);
         }
 
         private void DrawMe(Graphics g, Color color)
         {
-            g.DrawPolygon(new Pen(color, _width), _points.ToArray());
+            g.DrawPolygon(new Pen(color, _width), _points);
         }
     }
 }

@@ -17,7 +17,6 @@ namespace WindowsFormsApp1
             new CustomPolygonFactory(),
             new NormalPolygonFactory()
         };
-        private Stack<IDrawable> _figures = new Stack<IDrawable>();
 
         public Form1()
         {
@@ -25,6 +24,7 @@ namespace WindowsFormsApp1
             comboBox1.Items.AddRange(_drawableFactories);
             comboBox1.SelectedValueChanged += OnSelectDrawableFactory;
             comboBox1.SelectedIndex = 0;
+            _pictureBoxGraphics = driwerPanel.CreateGraphics();
         }
 
         private void OnSelectDrawableFactory(object sender, EventArgs e)
@@ -35,7 +35,7 @@ namespace WindowsFormsApp1
 
         private void OnInitGraphicsClick(object sender, EventArgs e)
         {
-            _pictureBoxGraphics = pictureBox1.CreateGraphics();
+            _pictureBoxGraphics = driwerPanel.CreateGraphics();
             InitGraphicsButton.Enabled = false;
             DrawButton.Enabled = true;
         }
@@ -43,7 +43,13 @@ namespace WindowsFormsApp1
         private void UpdateFactoryControls()
         {
             groupBox4.Controls.Clear();
-            groupBox4.Controls.AddRange(_selectedDrawableFactory.GetControls().ToArray());
+            var y = 20;
+            foreach (var control in _selectedDrawableFactory.GetControls())
+            {
+                control.Location = new Point(0, y);
+                y += control.Height;
+                groupBox4.Controls.Add(control);
+            }
         }
 
         private void OnDrawButtonClick(object sender, EventArgs e)
@@ -52,31 +58,80 @@ namespace WindowsFormsApp1
             {
                 var drawable = _selectedDrawableFactory.CreateNew();
                 drawable.Draw(_pictureBoxGraphics);
-                _figures.Push(drawable);
+                figures.Items.Add(drawable);
                 UpdateFactoryControls();
             }
             catch (Exception exception)
             {
                 groupBox3.Controls.Clear();
-                groupBox3.Controls.Add(new Label()
+                var control = new Label()
                 {
                     Text = exception.Message,
                     AutoSize = true,
-                    ForeColor = Color.Red
-                });
+                    ForeColor = Color.Red,
+                };
+                control.Location = new Point((groupBox3.Width - control.Width) / 2, (groupBox3.Height - control.Height) / 2);
+                groupBox3.Controls.Add(control);
             }
         }
 
         private void OnHideGraphicsClick(object sender, EventArgs e)
         {
-            if(_figures.Count != 0)
+            var drawable = GetSelectedDrawable();
+            if (drawable != null)
             {
-                var drawable = _figures.Pop();
-                drawable.Hide(_pictureBoxGraphics, BackColor);
-                foreach (var figure in _figures.Reverse())
-                {
-                    figure.Draw(_pictureBoxGraphics);
-                }
+                figures.Items.Remove(drawable);
+                //drawable.Hide(_pictureBoxGraphics, BackColor);
+            }
+
+            InvalidateDrawables();
+        }
+
+        private void scaleTrackBar_Scroll(object sender, EventArgs e)
+        {
+            var drawable = GetSelectedDrawable();
+            drawable?.Scale(scaleTrackBar.Value / 10f);
+            InvalidateDrawables();
+        }
+
+        private void rotateTrackBar_Scroll(object sender, EventArgs e)
+        {
+            var drawable = GetSelectedDrawable();
+            drawable?.Rotate(rotateTrackBar.Value, ParseRotationPoint());
+            InvalidateDrawables();
+        }
+        
+        private IDrawable GetSelectedDrawable()
+        {
+            if (!(figures.SelectedItem is IDrawable drawable))
+            {
+                figures.SelectedIndex = figures.Items.Count - 1;
+                drawable = figures.SelectedItem as IDrawable;
+            }
+
+            return drawable;
+        }
+        
+        private void InvalidateDrawables()
+        {
+            _pictureBoxGraphics?.Clear(driwerPanel.BackColor);
+            foreach (var figure in figures.Items)
+            {
+                (figure as IDrawable)?.Draw(_pictureBoxGraphics);
+            }
+        }
+
+        private Point? ParseRotationPoint()
+        {
+            var strX = rotationInputX.Text;
+            var strY = rotationInputY.Text;
+            try
+            {
+                return new Point(int.Parse(strX), int.Parse(strY));
+            }
+            catch
+            {
+                return null;
             }
         }
     }

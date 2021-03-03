@@ -12,37 +12,23 @@ namespace WindowsFormsApp1
 
         public abstract string Name { get; }
 
-        public List<Control> GetControls()
-        {
-            var resultControls = SetupControls();
+        public IEnumerable<Control> GetControls() => SetupControls();
 
-            return resultControls;
-        }
-
-        private List<Control> SetupControls()
+        private IEnumerable<Control> SetupControls()
         {
-            var resultControls = new List<Control>();
-            var dy = 20;
             foreach (var input in Inputs)
             {
                 var label = new Label()
                 {
                     Text = input.Name,
-                    Location = new Point(0, dy),
                     AutoSize = true
                 };
-                dy += label.Height;
+                yield return label;
                 foreach (var control in input.GetControls())
                 {
-                    control.Location = new Point(0, dy);
-                    dy += control.Height;
-                    resultControls.Add(control);
+                    yield return control;
                 }
-
-                resultControls.Add(label);
             }
-
-            return resultControls;
         }
 
         protected abstract T CreateDrawable();

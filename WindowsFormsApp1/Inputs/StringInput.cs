@@ -2,7 +2,7 @@
 
 namespace WindowsFormsApp1
 {
-    class StringInput: InputInfo<string>
+    class StringInput: Input<string>
     {
         private TextBox _textBox = new TextBox();
         public StringInput(string name) : base(name)

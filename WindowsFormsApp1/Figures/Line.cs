@@ -2,30 +2,38 @@
 
 namespace WindowsFormsApp1
 {
-    public class Line: IDrawable
+    public class Line: Figure
     {
-        public Point BeginPoint { get; set; }
-        public Point EndPoint { get; set; }
-        public Color Color { get; set; }
-        public int FontSize { get; set; }
+        protected override Point Center { get; set; }
+        private Point LocalBeginPoint { get; set; }
+        private Point LocalEndPoint { get; set; }
+        private Color Color { get; set; }
+        private int Width { get; set; }
 
-        public Line(Point beginPoint, Point endPoint, Color color, int fontSize)
+        public Line(Point beginPoint, Point endPoint, Color color, int width)
         {
-            BeginPoint = beginPoint;
-            EndPoint = endPoint;
+            Center = new Point((beginPoint.X + endPoint.X) / 2, (beginPoint.Y + endPoint.Y) / 2);
+            LocalBeginPoint = TranslatePointToLocal(beginPoint);
+            LocalEndPoint = TranslatePointToLocal(endPoint);
             Color = color;
-            FontSize = fontSize;
+            Width = width;
         }
 
-        public void Draw(Graphics g)
+        private Point TranslatePointToLocal(Point point)
         {
-            g.DrawLine(new Pen(Color, FontSize), BeginPoint, EndPoint);
+            return new Point(point.X - Center.X, point.Y - Center.Y);
         }
-        
 
-        public void Hide(Graphics g, Color bachColor)
+
+        protected override void DrawFigure(Graphics g)
         {
-            g.DrawLine(new Pen(bachColor, FontSize), BeginPoint, EndPoint);
+            g.DrawLine(new Pen(Color, Width), LocalBeginPoint, LocalEndPoint);
+        }
+
+
+        protected override void HideFigure(Graphics g, Color backColor)
+        {
+            g.DrawLine(new Pen(backColor, Width), LocalBeginPoint, LocalEndPoint);
         }
     }
 }

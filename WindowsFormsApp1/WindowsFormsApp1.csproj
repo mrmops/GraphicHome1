@@ -54,6 +54,7 @@
         <Compile Include="FigureFactory\NormalPolygonFactory.cs" />
         <Compile Include="Figures\Circle.cs" />
         <Compile Include="Figures\CustomPolygon.cs" />
+        <Compile Include="Figures\Figure.cs" />
         <Compile Include="Figures\IDrawable.cs" />
         <Compile Include="Figures\Line.cs" />
         <Compile Include="Figures\NormalPolygon.cs" />
@@ -64,10 +65,13 @@
             <DependentUpon>Form1.cs</DependentUpon>
         </Compile>
         <Compile Include="Inputs\ColorInput.cs" />
+        <Compile Include="Inputs\IInput.cs" />
+        <Compile Include="Inputs\Input.cs" />
         <Compile Include="Inputs\IntInput.cs" />
         <Compile Include="Inputs\ListPointInput.cs" />
         <Compile Include="Inputs\PointInput.cs" />
         <Compile Include="Inputs\StringInput.cs" />
+        <Compile Include="PointExtensions.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <EmbeddedResource Include="Form1.resx">

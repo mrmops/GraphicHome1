@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
-    public class PointInput : InputInfo<Point>
+    public class PointInput : Input<Point>
     {
         private readonly TextBox _xInput = new TextBox();
         private readonly TextBox _yInput = new TextBox();

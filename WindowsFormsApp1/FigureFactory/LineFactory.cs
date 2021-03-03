@@ -4,10 +4,10 @@ namespace WindowsFormsApp1
 {
     public class LineFactory : DrawableFactory<Line>
     {
-        private readonly PointInput _beginPoint = new PointInput("Begin point");
-        private readonly PointInput _endPoint = new PointInput("End point");
-        private readonly IntInput _fontSize = new IntInput("fontSize");
-        private readonly ColorInput _colorInput = new ColorInput("line color");
+        private readonly PointInput _beginPoint = new PointInput("Начальная точка");
+        private readonly PointInput _endPoint = new PointInput("Конечная точка");
+        private readonly IntInput _fontSize = new IntInput("Ширина линии");
+        private readonly ColorInput _colorInput = new ColorInput("Цвет линии");
 
         protected override IInput[] Inputs =>
             new IInput[]

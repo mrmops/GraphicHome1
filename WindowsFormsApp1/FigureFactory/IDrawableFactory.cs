@@ -5,7 +5,7 @@ namespace WindowsFormsApp1
 {
     public interface IDrawableFactory
     {
-        List<Control> GetControls();
+        IEnumerable<Control> GetControls();
         IDrawable CreateNew();
     }
 }
