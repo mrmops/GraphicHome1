@@ -51,6 +51,8 @@
             this.scaleTrackBar = new System.Windows.Forms.TrackBar();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.driwerPanel)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -210,6 +212,8 @@
             this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox6.AutoSize = true;
             this.groupBox6.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBox6.Controls.Add(this.label5);
+            this.groupBox6.Controls.Add(this.comboBox2);
             this.groupBox6.Controls.Add(this.rotationInputY);
             this.groupBox6.Controls.Add(this.rotationInputX);
             this.groupBox6.Controls.Add(this.label4);
@@ -217,9 +221,9 @@
             this.groupBox6.Controls.Add(this.label3);
             this.groupBox6.Controls.Add(this.label2);
             this.groupBox6.Controls.Add(this.scaleTrackBar);
-            this.groupBox6.Location = new System.Drawing.Point(3, 221);
+            this.groupBox6.Location = new System.Drawing.Point(1, 221);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(123, 217);
+            this.groupBox6.Size = new System.Drawing.Size(125, 272);
             this.groupBox6.TabIndex = 5;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Настройки фигуры";
@@ -312,6 +316,22 @@
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "groupBox8";
             // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(9, 232);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(110, 21);
+            this.comboBox2.TabIndex = 7;
+            // 
+            // label5
+            // 
+            this.label5.Location = new System.Drawing.Point(9, 201);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(93, 28);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Анимация перемещения";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -341,6 +361,9 @@
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Label label5;
 
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox rotationInputX;

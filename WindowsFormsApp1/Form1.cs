@@ -18,13 +18,43 @@ namespace WindowsFormsApp1
             new NormalPolygonFactory()
         };
 
+        private readonly Dictionary<string, Func<float, float>> animations =
+            new()
+            {
+                ["cos"] = f => (float) Math.Cos(f),
+                ["sin"] = f => (float) Math.Sin(f),
+                ["simple"] = f => 0
+            };
+
+        private Timer _updateTimer = new Timer()
+        {
+            Interval = 3,
+        };
+
         public Form1()
         {
             InitializeComponent();
             comboBox1.Items.AddRange(_drawableFactories);
             comboBox1.SelectedValueChanged += OnSelectDrawableFactory;
             comboBox1.SelectedIndex = 0;
+
+            comboBox2.Items.AddRange(animations.Keys.ToArray());
+            comboBox2.SelectedValueChanged += OnAnimationSelected;
+            
             _pictureBoxGraphics = driwerPanel.CreateGraphics();
+            driwerPanel.SizeChanged += (sender, args) => _pictureBoxGraphics = driwerPanel.CreateGraphics();
+
+            _updateTimer.Tick += (_, _) => InvalidateDrawables();
+            _updateTimer.Start();
+
+            DoubleBuffered = true;
+        }
+
+
+        private void OnAnimationSelected(object sender, EventArgs e)
+        {
+            var drawable = GetSelectedDrawable();
+            drawable._animator = new Animator(animations[comboBox2.SelectedItem.ToString()], driwerPanel);
         }
 
         private void OnSelectDrawableFactory(object sender, EventArgs e)
@@ -57,7 +87,7 @@ namespace WindowsFormsApp1
             try
             {
                 var drawable = _selectedDrawableFactory.CreateNew();
-                drawable.Draw(_pictureBoxGraphics);
+                drawable.Update(_pictureBoxGraphics);
                 figures.Items.Add(drawable);
                 UpdateFactoryControls();
             }
@@ -117,7 +147,7 @@ namespace WindowsFormsApp1
             _pictureBoxGraphics?.Clear(driwerPanel.BackColor);
             foreach (var figure in figures.Items)
             {
-                (figure as IDrawable)?.Draw(_pictureBoxGraphics);
+                (figure as IDrawable)?.Update(_pictureBoxGraphics);
             }
         }
 

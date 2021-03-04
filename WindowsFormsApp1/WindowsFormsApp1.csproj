@@ -12,6 +12,7 @@
         <FileAlignment>512</FileAlignment>
         <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
         <Deterministic>true</Deterministic>
+        <LangVersion>default</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -46,6 +47,7 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="DriwerPanel.cs" />
         <Compile Include="FigureFactory\CircleFactory.cs" />
         <Compile Include="FigureFactory\CustomPolygonFactory.cs" />
         <Compile Include="FigureFactory\DrawableFactory.cs" />
@@ -64,6 +66,7 @@
         <Compile Include="Form1.Designer.cs">
             <DependentUpon>Form1.cs</DependentUpon>
         </Compile>
+        <Compile Include="Inputs\Animator.cs" />
         <Compile Include="Inputs\ColorInput.cs" />
         <Compile Include="Inputs\IInput.cs" />
         <Compile Include="Inputs\Input.cs" />
