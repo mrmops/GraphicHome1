@@ -19,7 +19,7 @@ namespace WindowsFormsApp1
         };
 
         private readonly Dictionary<string, Func<float, float>> animations =
-            new()
+            new Dictionary<string, Func<float, float>>()
             {
                 ["cos"] = f => (float) Math.Cos(f),
                 ["sin"] = f => (float) Math.Sin(f),
@@ -44,7 +44,7 @@ namespace WindowsFormsApp1
             _pictureBoxGraphics = driwerPanel.CreateGraphics();
             driwerPanel.SizeChanged += (sender, args) => _pictureBoxGraphics = driwerPanel.CreateGraphics();
 
-            _updateTimer.Tick += (_, _) => InvalidateDrawables();
+            _updateTimer.Tick += (_, __) => InvalidateDrawables();
             _updateTimer.Start();
 
             DoubleBuffered = true;
@@ -113,22 +113,18 @@ namespace WindowsFormsApp1
                 figures.Items.Remove(drawable);
                 //drawable.Hide(_pictureBoxGraphics, BackColor);
             }
-
-            InvalidateDrawables();
         }
 
         private void scaleTrackBar_Scroll(object sender, EventArgs e)
         {
             var drawable = GetSelectedDrawable();
             drawable?.Scale(scaleTrackBar.Value / 10f);
-            InvalidateDrawables();
         }
 
         private void rotateTrackBar_Scroll(object sender, EventArgs e)
         {
             var drawable = GetSelectedDrawable();
             drawable?.Rotate(rotateTrackBar.Value, ParseRotationPoint());
-            InvalidateDrawables();
         }
         
         private IDrawable GetSelectedDrawable()
@@ -157,6 +153,8 @@ namespace WindowsFormsApp1
             var strY = rotationInputY.Text;
             try
             {
+                if (string.IsNullOrEmpty(strX) || string.IsNullOrEmpty(strY))
+                    return null;
                 return new Point(int.Parse(strX), int.Parse(strY));
             }
             catch
