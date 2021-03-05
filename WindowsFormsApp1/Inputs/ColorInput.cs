@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace WindowsFormsApp1
@@ -15,8 +16,12 @@ namespace WindowsFormsApp1
 
         private void OnColorPickerButtonClick(object sender, EventArgs e)
         {
-            if (_colorDialog.ShowDialog() == DialogResult.OK)
-                _button.ForeColor = _colorDialog.Color;
+            Thread t = new Thread(() =>
+            {
+                if (_colorDialog.ShowDialog() == DialogResult.OK)
+                    _button.ForeColor = _colorDialog.Color;
+            });
+            t.Start();
         }
 
         public override Color ParseValue() => _colorDialog.Color;

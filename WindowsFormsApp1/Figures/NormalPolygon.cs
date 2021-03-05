@@ -11,13 +11,15 @@ namespace WindowsFormsApp1
         private readonly int _radius;
         private readonly int _width;
         private readonly Color _color;
+        private readonly Color _fillColor; 
 
-        public NormalPolygon(Point location, int angleCount, int radius, int width, Color color)
+        public NormalPolygon(Point location, int angleCount, int radius, int width, Color color, Color fillColor)
         {
             Center = location;
             _angleCount = angleCount;
             _radius = radius;
             _color = color;
+            _fillColor = fillColor;
             _width = width;
         }
 
@@ -42,7 +44,9 @@ namespace WindowsFormsApp1
                 points.Add(point);
             }
 
-            g.DrawPolygon(new Pen(color, _width), points.ToArray());
+            var pointFs = points.ToArray();
+            g.DrawPolygon(new Pen(color, _width), pointFs);
+            g.FillPolygon(new SolidBrush(_fillColor), pointFs);
         }
     }
 }

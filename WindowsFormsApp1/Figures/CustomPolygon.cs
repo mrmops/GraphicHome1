@@ -9,14 +9,16 @@ namespace WindowsFormsApp1
         protected override Point Center { get; set; }
         private Point[] _points;
         private Color _color;
+        private Color _fillColor;
         private int _width;
 
-        public CustomPolygon(List<Point> points, Color color, int width)
+        public CustomPolygon(List<Point> points, Color color, int width, Color fillColor)
         {
             Center = FindCenter(points);
             _points = TranslatePoints(points);
             _color = color;
             this._width = width;
+            _fillColor = fillColor;
         }
 
         private Point[] TranslatePoints(List<Point> points)
@@ -49,7 +51,10 @@ namespace WindowsFormsApp1
 
         private void DrawMe(Graphics g, Color color)
         {
+            
+            SolidBrush br=new SolidBrush(_fillColor);
             g.DrawPolygon(new Pen(color, _width), _points);
+            g.FillPolygon(br, _points);
         }
     }
 }

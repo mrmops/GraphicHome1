@@ -12,6 +12,8 @@ namespace WindowsFormsApp1
         private float _step = 0.1f;
         private readonly Control _control;
 
+        public bool Enable = true;
+
         private readonly float _scale;
 
         private float _dx;
@@ -26,7 +28,9 @@ namespace WindowsFormsApp1
 
         public PointF GetShift(PointF center)
         {
-            var newDx = _dx + _step;
+            var newDx = _dx;
+            if(Enable) 
+                newDx += _step;
             var dy = _displacementCurve(_dx);
             var shift = new PointF(newDx * _scale, dy * _scale);
             if (ValidPoint(center.X + shift.X, center.Y + shift.Y))

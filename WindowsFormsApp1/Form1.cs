@@ -23,12 +23,13 @@ namespace WindowsFormsApp1
             {
                 ["cos"] = f => (float) Math.Cos(f),
                 ["sin"] = f => (float) Math.Sin(f),
-                ["simple"] = f => 0
+                ["simple"] = f => 0,
+                ["x^3 * cos(x)"] = f => f*f*f * (float)Math.Cos(f),
             };
 
-        private Timer _updateTimer = new Timer()
+        private System.Timers.Timer _updateTimer = new System.Timers.Timer()
         {
-            Interval = 3,
+            Interval = 2,
         };
 
         public Form1()
@@ -41,20 +42,33 @@ namespace WindowsFormsApp1
             comboBox2.Items.AddRange(animations.Keys.ToArray());
             comboBox2.SelectedValueChanged += OnAnimationSelected;
             
-            _pictureBoxGraphics = driwerPanel.CreateGraphics();
-            driwerPanel.SizeChanged += (sender, args) => _pictureBoxGraphics = driwerPanel.CreateGraphics();
+            _pictureBoxGraphics = pictureBox.CreateGraphics();
+            pictureBox.Paint += (_, __) => OnPaint();
+            pictureBox.SizeChanged += (sender, args) => _pictureBoxGraphics = pictureBox.CreateGraphics();
 
-            _updateTimer.Tick += (_, __) => InvalidateDrawables();
+            _updateTimer.Elapsed += (_, __) =>
+            {
+                _updateTimer.Enabled = false;
+                pictureBox.Invalidate();
+                _updateTimer.Enabled = true;
+            };
             _updateTimer.Start();
 
             DoubleBuffered = true;
+        }
+
+        private void OnPaint()
+        {
+            var image = new Bitmap(pictureBox.Width, pictureBox.Height);
+            InvalidateDrawables(Graphics.FromImage(image));
+            pictureBox.Image = image;
         }
 
 
         private void OnAnimationSelected(object sender, EventArgs e)
         {
             var drawable = GetSelectedDrawable();
-            drawable._animator = new Animator(animations[comboBox2.SelectedItem.ToString()], driwerPanel);
+            drawable._animator = new Animator(animations[comboBox2.SelectedItem.ToString()], pictureBox);
         }
 
         private void OnSelectDrawableFactory(object sender, EventArgs e)
@@ -65,7 +79,7 @@ namespace WindowsFormsApp1
 
         private void OnInitGraphicsClick(object sender, EventArgs e)
         {
-            _pictureBoxGraphics = driwerPanel.CreateGraphics();
+            _pictureBoxGraphics = pictureBox.CreateGraphics();
             InitGraphicsButton.Enabled = false;
             DrawButton.Enabled = true;
         }
@@ -138,12 +152,41 @@ namespace WindowsFormsApp1
             return drawable;
         }
         
-        private void InvalidateDrawables()
+
+
+/*
+ 
+        void move(int dx, int dy)
         {
-            _pictureBoxGraphics?.Clear(driwerPanel.BackColor);
+            x += dx;
+            y += dy;
+        }
+        risovat
+        bool flag=true;
+        while(flag)
+        {
+            Thread.Sleep(200);
+            Hide();
+            move(10,10);   
+            risovat
+        }   
+
+
+button10_click() { timer1.Start=false;    } 
+
+
+*/
+
+
+
+
+        private void InvalidateDrawables(Graphics g)
+        {
+            //g?.Clear(driwerPanel.BackColor);
             foreach (var figure in figures.Items)
             {
-                (figure as IDrawable)?.Update(_pictureBoxGraphics);
+                var drawable = (figure as IDrawable);
+                drawable?.Update(g);
             }
         }
 
@@ -160,6 +203,18 @@ namespace WindowsFormsApp1
             catch
             {
                 return null;
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var drawable = GetSelectedDrawable();
+            var button = sender as Button;
+            var drawableAnimator = drawable._animator;
+            if (drawableAnimator != null)
+            {
+                drawableAnimator.Enable = !drawableAnimator.Enable;
+                button.Text = drawableAnimator.Enable ? "Выключить анимацию" : "Включить анимацию";
             }
         }
     }
