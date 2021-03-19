@@ -2,19 +2,19 @@
 {
     public class NormalPolygonFactory: DrawableFactory<NormalPolygon>
     {
-        private readonly PointInput locationInput = new PointInput("Центр");
-        private readonly IntInput angleCountInput = new IntInput("Количество углов");
-        private readonly IntInput radiusInput = new IntInput("Расстояние до углов");
-        private readonly IntInput widthInput = new IntInput("Ширина линии рисования");
-        private readonly ColorInput colorInput = new ColorInput("Цвет рисования");
-        private readonly ColorInput fillColorInput = new ColorInput("Цвет заполнения");
+        private readonly PointInput _locationInput = new PointInput("Центр");
+        private readonly IntInput _angleCountInput = new IntInput("Количество углов");
+        private readonly IntInput _radiusInput = new IntInput("Расстояние до углов");
+        private readonly IntInput _widthInput = new IntInput("Ширина линии рисования");
+        private readonly ColorInput _colorInput = new ColorInput("Цвет рисования");
+        private readonly ColorInput _fillColorInput = new ColorInput("Цвет заполнения");
 
         protected override IInput[] Inputs => new IInput[]
-            {locationInput, angleCountInput, radiusInput, widthInput, colorInput};
+            {_locationInput, _angleCountInput, _radiusInput, _widthInput, _colorInput, _fillColorInput};
         
         public override string Name => "Правильный многоугольник";
         
         protected override NormalPolygon CreateDrawable() =>
-            new NormalPolygon(locationInput.Value, angleCountInput.Value, radiusInput.Value, widthInput.Value, colorInput.Value, fillColorInput.Value);
+            new NormalPolygon(_locationInput.Value, _angleCountInput.Value, _radiusInput.Value, _widthInput.Value, _colorInput.Value, _fillColorInput.Value);
     }
 }

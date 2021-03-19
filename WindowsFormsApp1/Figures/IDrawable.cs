@@ -7,10 +7,22 @@ namespace WindowsFormsApp1
         void Update(Graphics g);
         void Hide(Graphics g, Color backColor);
 
-        void Scale(float scaleValue);
+        int Scale { get; set; }
 
-        void Rotate(int angle, Point? rotationCenter);
+        Rotation Rotation { get; set; }
         
         Animator _animator { get; set; }
+    }
+
+    public class Rotation
+    {
+        public int Angle;
+        public Point? RotationCenter;
+
+        public Rotation(int angle, Point? rotationCenter)
+        {
+            Angle = angle;
+            RotationCenter = rotationCenter;
+        }
     }
 }

@@ -6,8 +6,8 @@ namespace WindowsFormsApp1
     public abstract class Figure: IDrawable
     {
         private float _scale = 1f;
-        private double _rotationAngle = 0;
-        private Point _rotationCenter;
+        private int _rotationAngle = 0;
+        private Point? _rotationCenter = null;
 
         public override string ToString()
         {
@@ -24,15 +24,19 @@ namespace WindowsFormsApp1
             TransformDrawAndResetTransform(g, graphics => HideFigure(graphics, backColor));
         }
 
-        public void Scale(float scaleValue)
-        {
-            _scale = scaleValue;
+        public int Scale 
+        { 
+            get => (int) (_scale * 10f);
+            set => _scale = value / 10f;
         }
-
-        public void Rotate(int angle, Point? rotationCenter)
-        {
-            _rotationAngle = angle;
-            _rotationCenter = rotationCenter ?? Center;
+        public Rotation Rotation 
+        { 
+            get => new Rotation(_rotationAngle, _rotationCenter);
+            set
+            {
+                _rotationAngle = value.Angle;
+                _rotationCenter = value.RotationCenter ?? Center;
+            } 
         }
 
         public Animator? _animator { get; set; }
@@ -43,17 +47,18 @@ namespace WindowsFormsApp1
             ShiftAnimation(g, rotatedCenter);
             g.TranslateTransform(rotatedCenter.X, rotatedCenter.Y);
             g.ScaleTransform(_scale, _scale);
-            g.RotateTransform((float)_rotationAngle);
+            g.RotateTransform(_rotationAngle);
             draw(g);
             g.ResetTransform();
         }
 
         private PointF FindNewCenter()
         {
-            var localLocationForRotationPoint = new Point(Center.X - _rotationCenter.X, Center.Y - _rotationCenter.Y);
+            var rotationCenter = _rotationCenter ?? Center;
+            var localCenterForRotationPoint = new Point(Center.X - rotationCenter.X, Center.Y - rotationCenter.Y);
             var rotationAngleRad = Math.PI * _rotationAngle / 180;
-            var localRotatedCenter = localLocationForRotationPoint.Rotate(rotationAngleRad);
-            var rotatedCenter = new PointF(localRotatedCenter.X + _rotationCenter.X, localRotatedCenter.Y + _rotationCenter.Y);
+            var localRotatedCenter = localCenterForRotationPoint.Rotate(rotationAngleRad);
+            var rotatedCenter = new PointF(localRotatedCenter.X + rotationCenter.X, localRotatedCenter.Y + rotationCenter.Y);
             return rotatedCenter;
         }
 

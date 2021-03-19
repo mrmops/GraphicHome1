@@ -6,7 +6,7 @@
         private readonly ColorInput _colorInput = new ColorInput("Выбор цвета");
         private readonly ColorInput _fillColorInput = new ColorInput("Выбор заливки");
         private readonly IntInput _widthInput = new IntInput("Толщина линии");
-        protected override IInput[] Inputs => new IInput[] {_listPointInput, _widthInput, _colorInput};
+        protected override IInput[] Inputs => new IInput[] {_listPointInput, _widthInput, _colorInput, _fillColorInput};
         public override string Name => "Кастомный многоугольник";
         protected override CustomPolygon CreateDrawable()
         {

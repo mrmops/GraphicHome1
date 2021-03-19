@@ -32,7 +32,7 @@ namespace WindowsFormsApp1
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.panel = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -44,6 +44,7 @@ namespace WindowsFormsApp1
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.figures = new System.Windows.Forms.ListBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.rotationInputY = new System.Windows.Forms.TextBox();
@@ -55,9 +56,8 @@ namespace WindowsFormsApp1
             this.scaleTrackBar = new System.Windows.Forms.TrackBar();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.pictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.panel)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -71,26 +71,26 @@ namespace WindowsFormsApp1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.AutoSize = true;
-            this.groupBox1.Controls.Add(this.pictureBox);
-            this.groupBox1.Location = new System.Drawing.Point(174, 0);
+            this.groupBox1.Controls.Add(this.panel);
+            this.groupBox1.Location = new System.Drawing.Point(139, 0);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(606, 728);
+            this.groupBox1.Size = new System.Drawing.Size(485, 582);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
             // 
-            // driwerPanel
+            // pictureBox
             // 
-            this.pictureBox.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.pictureBox.Location = new System.Drawing.Point(2, 19);
-            this.pictureBox.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(599, 688);
-            this.pictureBox.TabIndex = 0;
-            this.pictureBox.TabStop = false;
+            this.panel.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.panel.Location = new System.Drawing.Point(2, 15);
+            this.panel.Margin = new System.Windows.Forms.Padding(2);
+            this.panel.Name = "panel";
+            this.panel.Size = new System.Drawing.Size(479, 550);
+            this.panel.TabIndex = 0;
+            this.panel.TabStop = false;
             // 
             // groupBox2
             // 
@@ -101,11 +101,11 @@ namespace WindowsFormsApp1
             this.groupBox2.Controls.Add(this.button3);
             this.groupBox2.Controls.Add(this.DrawButton);
             this.groupBox2.Controls.Add(this.InitGraphicsButton);
-            this.groupBox2.Location = new System.Drawing.Point(8, 10);
+            this.groupBox2.Location = new System.Drawing.Point(6, 8);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(184, 266);
+            this.groupBox2.Size = new System.Drawing.Size(125, 214);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "groupBox2";
@@ -114,29 +114,27 @@ namespace WindowsFormsApp1
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(6, 70);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox1.Location = new System.Drawing.Point(5, 56);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(139, 24);
+            this.comboBox1.Size = new System.Drawing.Size(112, 21);
             this.comboBox1.TabIndex = 5;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 41);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(6, 33);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(124, 17);
+            this.label1.Size = new System.Drawing.Size(95, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "Выберете фигуру";
             // 
             // button3
             // 
             this.button3.AutoSize = true;
-            this.button3.Location = new System.Drawing.Point(5, 208);
+            this.button3.Location = new System.Drawing.Point(4, 166);
             this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(146, 39);
+            this.button3.Size = new System.Drawing.Size(117, 31);
             this.button3.TabIndex = 2;
             this.button3.Text = "Стереть";
             this.button3.UseVisualStyleBackColor = true;
@@ -146,10 +144,10 @@ namespace WindowsFormsApp1
             // 
             this.DrawButton.AutoSize = true;
             this.DrawButton.Enabled = false;
-            this.DrawButton.Location = new System.Drawing.Point(5, 162);
+            this.DrawButton.Location = new System.Drawing.Point(4, 130);
             this.DrawButton.Margin = new System.Windows.Forms.Padding(2);
             this.DrawButton.Name = "DrawButton";
-            this.DrawButton.Size = new System.Drawing.Size(146, 39);
+            this.DrawButton.Size = new System.Drawing.Size(117, 31);
             this.DrawButton.TabIndex = 1;
             this.DrawButton.Text = "Рисовать";
             this.DrawButton.UseVisualStyleBackColor = true;
@@ -158,10 +156,10 @@ namespace WindowsFormsApp1
             // InitGraphicsButton
             // 
             this.InitGraphicsButton.AutoSize = true;
-            this.InitGraphicsButton.Location = new System.Drawing.Point(5, 119);
+            this.InitGraphicsButton.Location = new System.Drawing.Point(4, 95);
             this.InitGraphicsButton.Margin = new System.Windows.Forms.Padding(2);
             this.InitGraphicsButton.Name = "InitGraphicsButton";
-            this.InitGraphicsButton.Size = new System.Drawing.Size(175, 39);
+            this.InitGraphicsButton.Size = new System.Drawing.Size(117, 31);
             this.InitGraphicsButton.TabIndex = 0;
             this.InitGraphicsButton.Text = "Включить графику";
             this.InitGraphicsButton.UseVisualStyleBackColor = true;
@@ -170,11 +168,11 @@ namespace WindowsFormsApp1
             // groupBox3
             // 
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox3.Location = new System.Drawing.Point(0, 711);
+            this.groupBox3.Location = new System.Drawing.Point(0, 569);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox3.Size = new System.Drawing.Size(951, 70);
+            this.groupBox3.Size = new System.Drawing.Size(761, 56);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Ошибки";
@@ -182,11 +180,11 @@ namespace WindowsFormsApp1
             // groupBox4
             // 
             this.groupBox4.AutoSize = true;
-            this.groupBox4.Location = new System.Drawing.Point(8, 282);
+            this.groupBox4.Location = new System.Drawing.Point(6, 226);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox4.Size = new System.Drawing.Size(156, 424);
+            this.groupBox4.Size = new System.Drawing.Size(125, 339);
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Поля ввода";
@@ -197,11 +195,9 @@ namespace WindowsFormsApp1
             this.groupBox5.AutoSize = true;
             this.groupBox5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.groupBox5.Controls.Add(this.figures);
-            this.groupBox5.Location = new System.Drawing.Point(167, 4);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox5.Location = new System.Drawing.Point(4, 3);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox5.Size = new System.Drawing.Size(152, 260);
+            this.groupBox5.Size = new System.Drawing.Size(122, 199);
             this.groupBox5.TabIndex = 4;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Фигуры";
@@ -209,12 +205,11 @@ namespace WindowsFormsApp1
             // figures
             // 
             this.figures.FormattingEnabled = true;
-            this.figures.ItemHeight = 16;
-            this.figures.Location = new System.Drawing.Point(10, 25);
-            this.figures.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.figures.Location = new System.Drawing.Point(8, 20);
             this.figures.Name = "figures";
-            this.figures.Size = new System.Drawing.Size(134, 212);
+            this.figures.Size = new System.Drawing.Size(108, 160);
             this.figures.TabIndex = 0;
+            this.figures.SelectedIndexChanged += new System.EventHandler(this.figures_SelectedIndexChanged);
             // 
             // groupBox6
             // 
@@ -231,55 +226,59 @@ namespace WindowsFormsApp1
             this.groupBox6.Controls.Add(this.label3);
             this.groupBox6.Controls.Add(this.label2);
             this.groupBox6.Controls.Add(this.scaleTrackBar);
-            this.groupBox6.Location = new System.Drawing.Point(165, 276);
-            this.groupBox6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox6.Location = new System.Drawing.Point(1, 221);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox6.Size = new System.Drawing.Size(155, 380);
+            this.groupBox6.Size = new System.Drawing.Size(125, 304);
             this.groupBox6.TabIndex = 5;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Настройки фигуры";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(8, 252);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(109, 34);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "Включить анимацию";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(11, 251);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(9, 201);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(116, 35);
+            this.label5.Size = new System.Drawing.Size(93, 28);
             this.label5.TabIndex = 8;
             this.label5.Text = "Анимация перемещения";
             // 
             // comboBox2
             // 
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(11, 290);
-            this.comboBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox2.Location = new System.Drawing.Point(9, 232);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(136, 24);
+            this.comboBox2.Size = new System.Drawing.Size(110, 21);
             this.comboBox2.TabIndex = 7;
             // 
             // rotationInputY
             // 
-            this.rotationInputY.Location = new System.Drawing.Point(10, 222);
-            this.rotationInputY.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rotationInputY.Location = new System.Drawing.Point(8, 178);
             this.rotationInputY.Name = "rotationInputY";
-            this.rotationInputY.Size = new System.Drawing.Size(134, 22);
+            this.rotationInputY.Size = new System.Drawing.Size(108, 20);
             this.rotationInputY.TabIndex = 6;
             // 
             // rotationInputX
             // 
-            this.rotationInputX.Location = new System.Drawing.Point(10, 194);
-            this.rotationInputX.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rotationInputX.Location = new System.Drawing.Point(8, 155);
             this.rotationInputX.Name = "rotationInputX";
-            this.rotationInputX.Size = new System.Drawing.Size(134, 22);
+            this.rotationInputX.Size = new System.Drawing.Size(108, 20);
             this.rotationInputX.TabIndex = 5;
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(10, 168);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(8, 134);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(134, 26);
+            this.label4.Size = new System.Drawing.Size(107, 21);
             this.label4.TabIndex = 4;
             this.label4.Text = "Точка поворота";
             // 
@@ -287,43 +286,39 @@ namespace WindowsFormsApp1
             // 
             this.rotateTrackBar.Cursor = System.Windows.Forms.Cursors.SizeWE;
             this.rotateTrackBar.LargeChange = 10;
-            this.rotateTrackBar.Location = new System.Drawing.Point(8, 121);
-            this.rotateTrackBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rotateTrackBar.Location = new System.Drawing.Point(6, 97);
             this.rotateTrackBar.Maximum = 360;
             this.rotateTrackBar.Name = "rotateTrackBar";
-            this.rotateTrackBar.Size = new System.Drawing.Size(139, 56);
+            this.rotateTrackBar.Size = new System.Drawing.Size(111, 45);
             this.rotateTrackBar.TabIndex = 3;
             this.rotateTrackBar.Scroll += new System.EventHandler(this.rotateTrackBar_Scroll);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 101);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(6, 81);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(64, 17);
+            this.label3.Size = new System.Drawing.Size(50, 13);
             this.label3.TabIndex = 2;
             this.label3.Text = "Поворот";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 41);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(6, 33);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(68, 17);
+            this.label2.Size = new System.Drawing.Size(53, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Масштаб";
             // 
             // scaleTrackBar
             // 
             this.scaleTrackBar.Cursor = System.Windows.Forms.Cursors.SizeWE;
-            this.scaleTrackBar.Location = new System.Drawing.Point(8, 61);
-            this.scaleTrackBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.scaleTrackBar.Location = new System.Drawing.Point(6, 49);
             this.scaleTrackBar.Maximum = 100;
             this.scaleTrackBar.Minimum = 10;
             this.scaleTrackBar.Name = "scaleTrackBar";
-            this.scaleTrackBar.Size = new System.Drawing.Size(139, 56);
+            this.scaleTrackBar.Size = new System.Drawing.Size(111, 45);
             this.scaleTrackBar.TabIndex = 0;
             this.scaleTrackBar.Value = 10;
             this.scaleTrackBar.Scroll += new System.EventHandler(this.scaleTrackBar_Scroll);
@@ -335,53 +330,40 @@ namespace WindowsFormsApp1
             this.groupBox7.Dock = System.Windows.Forms.DockStyle.Left;
             this.groupBox7.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.groupBox7.Location = new System.Drawing.Point(0, 0);
-            this.groupBox7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox7.Size = new System.Drawing.Size(171, 711);
+            this.groupBox7.Size = new System.Drawing.Size(137, 569);
             this.groupBox7.TabIndex = 6;
             this.groupBox7.TabStop = false;
             // 
             // groupBox8
             // 
             this.groupBox8.AutoSize = true;
+            this.groupBox8.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.groupBox8.Controls.Add(this.groupBox6);
             this.groupBox8.Controls.Add(this.groupBox5);
             this.groupBox8.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupBox8.Location = new System.Drawing.Point(619, 0);
-            this.groupBox8.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox8.Location = new System.Drawing.Point(625, 0);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox8.Size = new System.Drawing.Size(332, 711);
+            this.groupBox8.Size = new System.Drawing.Size(136, 569);
             this.groupBox8.TabIndex = 7;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "groupBox8";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(10, 315);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(136, 43);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Включить анимацию";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(951, 781);
+            this.ClientSize = new System.Drawing.Size(761, 625);
             this.Controls.Add(this.groupBox8);
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.MinimumSize = new System.Drawing.Size(826, 818);
+            this.MinimumSize = new System.Drawing.Size(664, 662);
             this.Name = "Form1";
             this.Text = "Drawer";
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize) (this.pictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.panel)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox5.ResumeLayout(false);
@@ -426,7 +408,7 @@ namespace WindowsFormsApp1
 
         private System.Windows.Forms.GroupBox groupBox4;
 
-        private System.Windows.Forms.PictureBox pictureBox;
+        private System.Windows.Forms.PictureBox panel;
 
         private System.Windows.Forms.Button InitGraphicsButton;
         private System.Windows.Forms.Button DrawButton;
@@ -440,13 +422,5 @@ namespace WindowsFormsApp1
         
 
         #endregion
-    }
-
-    internal class MyDriwerPanel : PictureBox
-    {
-        public MyDriwerPanel()
-        {
-            DoubleBuffered = true;
-        }
     }
 }

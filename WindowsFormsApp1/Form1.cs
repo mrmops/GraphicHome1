@@ -8,7 +8,6 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
-        private Graphics _pictureBoxGraphics;
         private IDrawableFactory _selectedDrawableFactory;
 
         private readonly IDrawableFactory[] _drawableFactories = {
@@ -24,13 +23,15 @@ namespace WindowsFormsApp1
                 ["cos"] = f => (float) Math.Cos(f),
                 ["sin"] = f => (float) Math.Sin(f),
                 ["simple"] = f => 0,
-                ["x^3 * cos(x)"] = f => f*f*f * (float)Math.Cos(f),
+                ["|x|"] = f => 0.5f * Math.Abs(f),
             };
 
         private System.Timers.Timer _updateTimer = new System.Timers.Timer()
         {
             Interval = 2,
         };
+
+        private Bitmap _image;
 
         public Form1()
         {
@@ -42,33 +43,36 @@ namespace WindowsFormsApp1
             comboBox2.Items.AddRange(animations.Keys.ToArray());
             comboBox2.SelectedValueChanged += OnAnimationSelected;
             
-            _pictureBoxGraphics = pictureBox.CreateGraphics();
-            pictureBox.Paint += (_, __) => OnPaint();
-            pictureBox.SizeChanged += (sender, args) => _pictureBoxGraphics = pictureBox.CreateGraphics();
+            _image = new Bitmap(panel.Width, panel.Height);
+            panel.SizeChanged += (_, __) =>
+            {
+                _image = new Bitmap(panel.Width, panel.Height);
+            };
 
             _updateTimer.Elapsed += (_, __) =>
             {
                 _updateTimer.Enabled = false;
-                pictureBox.Invalidate();
+                OnPaint();
                 _updateTimer.Enabled = true;
             };
-            _updateTimer.Start();
+            //_updateTimer.Start();
 
             DoubleBuffered = true;
         }
 
         private void OnPaint()
         {
-            var image = new Bitmap(pictureBox.Width, pictureBox.Height);
-            InvalidateDrawables(Graphics.FromImage(image));
-            pictureBox.Image = image;
+            var fromImage = Graphics.FromImage(_image);
+            fromImage.Clear(panel.BackColor);
+            InvalidateDrawables(fromImage);
+            panel.Image = _image;
         }
 
 
         private void OnAnimationSelected(object sender, EventArgs e)
         {
             var drawable = GetSelectedDrawable();
-            drawable._animator = new Animator(animations[comboBox2.SelectedItem.ToString()], pictureBox);
+            drawable._animator = new Animator(animations[comboBox2.SelectedItem.ToString()], panel);
         }
 
         private void OnSelectDrawableFactory(object sender, EventArgs e)
@@ -79,9 +83,9 @@ namespace WindowsFormsApp1
 
         private void OnInitGraphicsClick(object sender, EventArgs e)
         {
-            _pictureBoxGraphics = pictureBox.CreateGraphics();
-            InitGraphicsButton.Enabled = false;
-            DrawButton.Enabled = true;
+            DrawSpiral(sender, e);
+            //InitGraphicsButton.Enabled = false;
+            //DrawButton.Enabled = true;
         }
 
         private void UpdateFactoryControls()
@@ -101,8 +105,8 @@ namespace WindowsFormsApp1
             try
             {
                 var drawable = _selectedDrawableFactory.CreateNew();
-                drawable.Update(_pictureBoxGraphics);
                 figures.Items.Add(drawable);
+                figures.SelectedItem = drawable;
                 UpdateFactoryControls();
             }
             catch (Exception exception)
@@ -132,13 +136,19 @@ namespace WindowsFormsApp1
         private void scaleTrackBar_Scroll(object sender, EventArgs e)
         {
             var drawable = GetSelectedDrawable();
-            drawable?.Scale(scaleTrackBar.Value / 10f);
+            if (drawable != null)
+            {
+                drawable.Scale = scaleTrackBar.Value;
+            }
         }
 
         private void rotateTrackBar_Scroll(object sender, EventArgs e)
         {
             var drawable = GetSelectedDrawable();
-            drawable?.Rotate(rotateTrackBar.Value, ParseRotationPoint());
+            if(drawable != null)
+            {
+                drawable.Rotation = new Rotation(rotateTrackBar.Value, ParseRotationPoint());
+            }
         }
         
         private IDrawable GetSelectedDrawable()
@@ -152,34 +162,6 @@ namespace WindowsFormsApp1
             return drawable;
         }
         
-
-
-/*
- 
-        void move(int dx, int dy)
-        {
-            x += dx;
-            y += dy;
-        }
-        risovat
-        bool flag=true;
-        while(flag)
-        {
-            Thread.Sleep(200);
-            Hide();
-            move(10,10);   
-            risovat
-        }   
-
-
-button10_click() { timer1.Start=false;    } 
-
-
-*/
-
-
-
-
         private void InvalidateDrawables(Graphics g)
         {
             //g?.Clear(driwerPanel.BackColor);
@@ -211,11 +193,62 @@ button10_click() { timer1.Start=false;    }
             var drawable = GetSelectedDrawable();
             var button = sender as Button;
             var drawableAnimator = drawable._animator;
-            if (drawableAnimator != null)
-            {
-                drawableAnimator.Enable = !drawableAnimator.Enable;
-                button.Text = drawableAnimator.Enable ? "Выключить анимацию" : "Включить анимацию";
-            }
+            if (drawableAnimator == null || button == null) return;
+            drawableAnimator.Enable = !drawableAnimator.Enable;
+            button.Text = drawableAnimator.Enable ? "Выключить анимацию" : "Включить анимацию";
         }
+
+        private void figures_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var drawable = GetSelectedDrawable();
+            var drawableRotation = drawable.Rotation;
+            rotateTrackBar.Value = drawableRotation.Angle;
+            var drawableRotationRotationCenter = drawableRotation.RotationCenter;
+            rotationInputX.Text = drawableRotationRotationCenter?.X.ToString() ?? "";
+            rotationInputY.Text = drawableRotationRotationCenter?.Y.ToString() ?? "";
+            scaleTrackBar.Value = drawable.Scale;
+        }
+        
+        //очистка области рисования
+        private void button4_Click(object sender, EventArgs e)
+        {
+            var g = panel.CreateGraphics();
+            g.Clear(panel.BackColor);
+        }
+        //рисуем спираль
+        private void DrawSpiral(object sender, EventArgs e)
+        {
+            double rd = (float) 0.3535534;
+            var Mx = panel.Width/2;
+            var My = panel.Height/5;
+            var color = Color.Blue;
+            var drawWidth = 1;
+            var pen = new Pen(color, drawWidth);
+            var graphics = panel.CreateGraphics();
+            var oldPoint = new Point(0, 0);
+            for (var i = 0; i <= 620; i++)
+            {
+                var angleInRadians = i * Math.PI / 180.0;
+                var a = 0.3 * angleInRadians;
+                var newAngle = 10 * angleInRadians;
+                // var cos = Math.Cos(newAngle);
+                // var sin = Math.Sin(newAngle);
+                var z1 = (float) Math.Sin(newAngle);
+                var z2 = (float) Math.Cos(newAngle)*(float) Math.Cos(a);
+                var z3 = (float) Math.Cos(newAngle)*(float) Math.Sin(a);
+                var x = z2 - rd * z3;
+                var y = z1 - rd * z3;
+                var px = (int) Math.Round(Mx + 100 * x);
+                var py = (int) Math.Round(My + 100 * y);
+                if (i == 0)
+                {
+                    oldPoint = new Point(px, py);
+                }
+
+                graphics.DrawLine(pen, oldPoint.X, oldPoint.Y, px, py);
+                
+                oldPoint = new Point(px, py);
+            }
+        }//spiral
     }
 }

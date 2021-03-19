@@ -41,7 +41,7 @@ namespace WindowsFormsApp1
             }
             
             _step = -_step;
-            return shift;
+            return _oldShift;
         }
 
         private bool ValidPoint(float dx, float dy)

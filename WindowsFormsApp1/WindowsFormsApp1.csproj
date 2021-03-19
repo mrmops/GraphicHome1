@@ -47,6 +47,8 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="3DFigures\Figure3D.cs" />
+        <Compile Include="3DFigures\Point3D.cs" />
         <Compile Include="DriwerPanel.cs" />
         <Compile Include="FigureFactory\CircleFactory.cs" />
         <Compile Include="FigureFactory\CustomPolygonFactory.cs" />
