@@ -47,15 +47,20 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="3DFigures\Figure3D.cs" />
+        <Compile Include="3DFigures\LineFigure3D.cs" />
+        <Compile Include="3DFigures\Line3D.cs" />
+        <Compile Include="3DFigures\Matrix.cs" />
         <Compile Include="3DFigures\Point3D.cs" />
+        <Compile Include="3DFigures\Spiral.cs" />
         <Compile Include="DriwerPanel.cs" />
         <Compile Include="FigureFactory\CircleFactory.cs" />
         <Compile Include="FigureFactory\CustomPolygonFactory.cs" />
         <Compile Include="FigureFactory\DrawableFactory.cs" />
         <Compile Include="FigureFactory\IDrawableFactory.cs" />
+        <Compile Include="FigureFactory\Line3DFactory.cs" />
         <Compile Include="FigureFactory\LineFactory.cs" />
         <Compile Include="FigureFactory\NormalPolygonFactory.cs" />
+        <Compile Include="FigureFactory\SpiralFactory.cs" />
         <Compile Include="Figures\Circle.cs" />
         <Compile Include="Figures\CustomPolygon.cs" />
         <Compile Include="Figures\Figure.cs" />
@@ -74,7 +79,9 @@
         <Compile Include="Inputs\Input.cs" />
         <Compile Include="Inputs\IntInput.cs" />
         <Compile Include="Inputs\ListPointInput.cs" />
+        <Compile Include="Inputs\Point3DInput.cs" />
         <Compile Include="Inputs\PointInput.cs" />
+        <Compile Include="Inputs\RadAngleInput.cs" />
         <Compile Include="Inputs\StringInput.cs" />
         <Compile Include="PointExtensions.cs" />
         <Compile Include="Program.cs" />

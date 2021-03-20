@@ -11,6 +11,8 @@ namespace WindowsFormsApp1
         private IDrawableFactory _selectedDrawableFactory;
 
         private readonly IDrawableFactory[] _drawableFactories = {
+            new SpiralFactory(),
+            new Line3DFactory(),
             new LineFactory(),
             new CircleFactory(),
             new CustomPolygonFactory(),
@@ -48,19 +50,20 @@ namespace WindowsFormsApp1
             {
                 _image = new Bitmap(panel.Width, panel.Height);
             };
+            panel.Paint += OnPaint;
 
             _updateTimer.Elapsed += (_, __) =>
             {
                 _updateTimer.Enabled = false;
-                OnPaint();
+                panel.Invalidate();
                 _updateTimer.Enabled = true;
             };
-            //_updateTimer.Start();
+            _updateTimer.Start();
 
             DoubleBuffered = true;
         }
 
-        private void OnPaint()
+        private void OnPaint(object sender, PaintEventArgs e)
         {
             var fromImage = Graphics.FromImage(_image);
             fromImage.Clear(panel.BackColor);
@@ -83,9 +86,9 @@ namespace WindowsFormsApp1
 
         private void OnInitGraphicsClick(object sender, EventArgs e)
         {
-            DrawSpiral(sender, e);
+            //DrawSpiral(sender, e);
             //InitGraphicsButton.Enabled = false;
-            //DrawButton.Enabled = true;
+            DrawButton.Enabled = true;
         }
 
         private void UpdateFactoryControls()
@@ -107,7 +110,7 @@ namespace WindowsFormsApp1
                 var drawable = _selectedDrawableFactory.CreateNew();
                 figures.Items.Add(drawable);
                 figures.SelectedItem = drawable;
-                UpdateFactoryControls();
+                //UpdateFactoryControls();
             }
             catch (Exception exception)
             {
@@ -164,7 +167,7 @@ namespace WindowsFormsApp1
         
         private void InvalidateDrawables(Graphics g)
         {
-            //g?.Clear(driwerPanel.BackColor);
+            //g?.Clear(panel.BackColor);
             foreach (var figure in figures.Items)
             {
                 var drawable = (figure as IDrawable);
@@ -201,12 +204,16 @@ namespace WindowsFormsApp1
         private void figures_SelectedIndexChanged(object sender, EventArgs e)
         {
             var drawable = GetSelectedDrawable();
-            var drawableRotation = drawable.Rotation;
-            rotateTrackBar.Value = drawableRotation.Angle;
-            var drawableRotationRotationCenter = drawableRotation.RotationCenter;
-            rotationInputX.Text = drawableRotationRotationCenter?.X.ToString() ?? "";
-            rotationInputY.Text = drawableRotationRotationCenter?.Y.ToString() ?? "";
-            scaleTrackBar.Value = drawable.Scale;
+            var drawableRotation = drawable?.Rotation;
+            rotateTrackBar.Value = drawableRotation?.Angle ?? rotateTrackBar.Minimum;
+            var drawableRotationRotationCenter = drawableRotation?.RotationCenter ?? new Point();
+            rotationInputX.Text = drawableRotationRotationCenter.X.ToString();
+            rotationInputY.Text = drawableRotationRotationCenter.Y.ToString();
+            var drawableScale = drawable?.Scale ?? scaleTrackBar.Minimum;
+            scaleTrackBar.Value =
+                drawableScale >= scaleTrackBar.Minimum && drawableScale <= scaleTrackBar.Maximum 
+                ? drawableScale 
+                : scaleTrackBar.Minimum;
         }
         
         //очистка области рисования

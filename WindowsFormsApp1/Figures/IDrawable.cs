@@ -5,7 +5,6 @@ namespace WindowsFormsApp1
     public interface IDrawable
     {
         void Update(Graphics g);
-        void Hide(Graphics g, Color backColor);
 
         int Scale { get; set; }
 
