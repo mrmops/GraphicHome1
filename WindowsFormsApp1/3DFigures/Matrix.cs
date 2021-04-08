@@ -30,6 +30,11 @@ namespace WindowsFormsApp1._3DFigures
             return result;
         }
 
+        public Point3D GetPoint()
+        {
+            return new Point3D(_matrix[0, 0], _matrix[1, 1], _matrix[2, 2]);
+        }
+
         public static Matrix CreateStartMatrix()
         {
             return new Matrix(new[,]
@@ -37,7 +42,9 @@ namespace WindowsFormsApp1._3DFigures
                 {1.0, 0.0, 0.0, 0.0},
                 {0.0, 1.0, 0.0, 0.0},
                 {0.0, 0.0, 1.0, 0.0},
-                {0.0, 0.0, 0.0, 1.0}});
+                {0.0, 0.0, 0.0, 1.0}
+                
+            });
         }
         
         public static Matrix CreateRotationMatrixX(double angle)
@@ -45,8 +52,8 @@ namespace WindowsFormsApp1._3DFigures
             return new Matrix(new[,]
             {
                 {1.0, 0.0, 0.0, 0.0},
-                {0.0, Math.Cos(angle), Math.Sin(angle), 0.0},
-                {0.0, -Math.Sin(angle), Math.Cos(angle), 0.0},
+                {0.0, Math.Cos(angle), -Math.Sin(angle), 0.0},
+                {0.0, Math.Sin(angle), Math.Cos(angle), 0.0},
                 {0.0, 0.0, 0.0, 1.0}
             });
         }
@@ -55,9 +62,9 @@ namespace WindowsFormsApp1._3DFigures
         {
             return new Matrix(new[,]
             {
-                {Math.Cos(angle),  0.0,             -Math.Sin(angle),0.0},
+                {Math.Cos(angle),  0.0,             Math.Sin(angle),0.0},
                 {0.0,              1.0,             0.0,             0.0},
-                {Math.Sin(angle),  0.0,             Math.Cos(angle), 0.0},
+                {-Math.Sin(angle),  0.0,             Math.Cos(angle), 0.0},
                 {0.0,              0.0,             0.0,             1.0}
                 
             });
@@ -75,14 +82,14 @@ namespace WindowsFormsApp1._3DFigures
             });
         }
         
-        public static Matrix CreateTransformMatrixFromView()
+        public static Matrix CreateTransformMatrixFromView(double len)
         {
             return new Matrix(new[,]
             {
                 {1.0, 0.0, 0.0, 0.0},
                 {0.0, 1.0, 0.0, 0.0},
-                {0.0, 0.0, 0.0, 1.0},
-                {0.0, 0.0, 0.0, 1.0}});
+                {0.0, 0.0, 0.0, 0.0},
+                {0.0, 0.0, 1 / len , 1.0}});
         }
         
         public static Matrix CreateScaleMatrix(double scale)
@@ -120,12 +127,12 @@ namespace WindowsFormsApp1._3DFigures
             return new Point3D(result[0, 0], result[1, 0], result[2, 0]);
         }
         
-        public static Point3D operator *(Point3D a, Matrix b)
-        {
-            var result = MatrixMultiplication(a.ToMatrix()._matrix, b._matrix);
-
-            return new Point3D(result[0, 0], result[1, 0], result[2, 0]);
-        }
+        // public static Point3D operator *(Point3D a, Matrix b)
+        // {
+        //     var result = MatrixMultiplication(a.ToMatrix()._matrix, b._matrix);
+        //
+        //     return new Point3D(result[0, 0], result[1, 0], result[2, 0]);
+        // }
         
         
         private static double[,] MatrixMultiplication(double[,] a, double[,] b)

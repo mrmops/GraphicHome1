@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using WindowsFormsApp1._3DFigures;
 
 namespace WindowsFormsApp1
 {
@@ -10,9 +12,13 @@ namespace WindowsFormsApp1
     {
         private IDrawableFactory _selectedDrawableFactory;
 
+        private SquareSurface _squareSurface = new SquareSurface(1000, new Point3D(0, 0, 0), Color.Black, 1);
+
         private readonly IDrawableFactory[] _drawableFactories = {
+            new SurfaceFactory(),
+            new CubeFactory(),
+            new SphereFactory(),
             new SpiralFactory(),
-            new Line3DFactory(),
             new LineFactory(),
             new CircleFactory(),
             new CustomPolygonFactory(),
@@ -51,6 +57,8 @@ namespace WindowsFormsApp1
                 _image = new Bitmap(panel.Width, panel.Height);
             };
             panel.Paint += OnPaint;
+            panel.KeyDown += MoveCamera;
+            panel.MouseWheel += ScaleCamera;
 
             _updateTimer.Elapsed += (_, __) =>
             {
@@ -61,6 +69,50 @@ namespace WindowsFormsApp1
             _updateTimer.Start();
 
             DoubleBuffered = true;
+        }
+
+        private void ScaleCamera(object sender, MouseEventArgs e)
+        {
+            var scale = e.Delta > 0 ? 1.1 : 0.9;
+            Camera.Scale(scale);
+        }
+
+        private void MoveCamera(object sender, KeyEventArgs e)
+        {
+            var step = 15;
+            switch (e.KeyCode)
+            {
+                case Keys.A:
+                {
+                    Camera.MoveX(step);
+                    return;
+                }
+                case Keys.W:
+                {
+                    Camera.MoveY(step);
+                    return;
+                }
+                case Keys.S:
+                {
+                    Camera.MoveY(-step);
+                    return;
+                }
+                case Keys.D:
+                {
+                    Camera.MoveX(-step);
+                    return;
+                }
+                case Keys.ShiftKey:
+                {
+                    Camera.MoveZ(step);
+                    return;
+                }
+                case Keys.Space:
+                {
+                    Camera.MoveZ(-step);
+                    return;
+                }
+            }
         }
 
         private void OnPaint(object sender, PaintEventArgs e)
@@ -167,6 +219,7 @@ namespace WindowsFormsApp1
         
         private void InvalidateDrawables(Graphics g)
         {
+            //_squareSurface.Update(g);
             //g?.Clear(panel.BackColor);
             foreach (var figure in figures.Items)
             {
@@ -216,6 +269,7 @@ namespace WindowsFormsApp1
                 : scaleTrackBar.Minimum;
         }
         
+        
         //очистка области рисования
         private void button4_Click(object sender, EventArgs e)
         {
@@ -257,5 +311,10 @@ namespace WindowsFormsApp1
                 oldPoint = new Point(px, py);
             }
         }//spiral
+
+        private void panel_Click(object sender, EventArgs e)
+        {
+            panel.Focus();
+        }
     }
 }

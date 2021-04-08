@@ -14,7 +14,7 @@ namespace WindowsFormsApp1
 
         public abstract T ParseValue();
         
-        public void ParseInput()
+        public void SubmitData()
         {
             Value = ParseValue();
         }

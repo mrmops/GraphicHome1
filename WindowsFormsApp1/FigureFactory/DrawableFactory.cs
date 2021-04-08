@@ -37,7 +37,7 @@ namespace WindowsFormsApp1
         {
             foreach (var input in Inputs)
             {
-                input.ParseInput();
+                input.SubmitData();
             }
             
             return CreateDrawable();

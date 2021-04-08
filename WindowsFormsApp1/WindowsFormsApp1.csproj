@@ -47,20 +47,27 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="3DFigures\Cube.cs" />
         <Compile Include="3DFigures\LineFigure3D.cs" />
         <Compile Include="3DFigures\Line3D.cs" />
         <Compile Include="3DFigures\Matrix.cs" />
         <Compile Include="3DFigures\Point3D.cs" />
+        <Compile Include="3DFigures\Sphere.cs" />
         <Compile Include="3DFigures\Spiral.cs" />
+        <Compile Include="3DFigures\Surface.cs" />
+        <Compile Include="Camera.cs" />
         <Compile Include="DriwerPanel.cs" />
         <Compile Include="FigureFactory\CircleFactory.cs" />
+        <Compile Include="FigureFactory\CubeFactory.cs" />
         <Compile Include="FigureFactory\CustomPolygonFactory.cs" />
         <Compile Include="FigureFactory\DrawableFactory.cs" />
         <Compile Include="FigureFactory\IDrawableFactory.cs" />
         <Compile Include="FigureFactory\Line3DFactory.cs" />
         <Compile Include="FigureFactory\LineFactory.cs" />
         <Compile Include="FigureFactory\NormalPolygonFactory.cs" />
+        <Compile Include="FigureFactory\SphereFactory.cs" />
         <Compile Include="FigureFactory\SpiralFactory.cs" />
+        <Compile Include="FigureFactory\SurfaceFactory.cs" />
         <Compile Include="Figures\Circle.cs" />
         <Compile Include="Figures\CustomPolygon.cs" />
         <Compile Include="Figures\Figure.cs" />
@@ -86,6 +93,7 @@
         <Compile Include="PointExtensions.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="SquareSurface.cs" />
         <EmbeddedResource Include="Form1.resx">
           <DependentUpon>Form1.cs</DependentUpon>
         </EmbeddedResource>

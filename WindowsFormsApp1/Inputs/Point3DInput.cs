@@ -21,9 +21,6 @@ namespace WindowsFormsApp1
             return new Point3D(x, y, z);
         }
         
-        public override Control[] GetControls()
-        {
-            return new Control[] {_xInput, _yInput, _zInput};
-        }
+        public override Control[] GetControls() => new Control[] {_xInput, _yInput, _zInput};
     }
 }

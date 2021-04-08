@@ -13,20 +13,16 @@ namespace WindowsFormsApp1._3DFigures
         private int _radius;
         private int _turnsCount;
         private Point3D _center;
-        private Color _color;
-        private int _width;
 
         private List<Line3D> _lines;
 
-        public Spiral(double angleYx, int stepPerTurn, int radius, int turnsCount, Point3D center, Color color, int width)
+        public Spiral(double angleYx, int stepPerTurn, int radius, int turnsCount, Point3D center, Color color, int width) : base(color, width)
         {
             _angleYx = angleYx;
             _stepPerTurn = stepPerTurn;
             _radius = radius;
             _turnsCount = turnsCount;
             _center = center;
-            _color = color;
-            _width = width;
             _lines = CreateLines().ToList();
         }
 
@@ -43,7 +39,7 @@ namespace WindowsFormsApp1._3DFigures
                 var totalAngle = step * _angleYx;
                 var rotatedPoint = startPoint.Rotate(totalAngle);
                 var newPoint = new Point3D(rotatedPoint.X + _center.X, rotatedPoint.Y + _center.Y, _center.Z + stepZ * step);
-                yield return new Line3D(previousPoint, newPoint, _color, _width);
+                yield return new Line3D(previousPoint, newPoint);
                 previousPoint = newPoint;
             }
         }

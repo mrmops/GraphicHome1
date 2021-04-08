@@ -81,7 +81,7 @@ namespace WindowsFormsApp1
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
             // 
-            // pictureBox
+            // panel
             // 
             this.panel.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.panel.BackColor = System.Drawing.SystemColors.ControlDark;
@@ -91,6 +91,7 @@ namespace WindowsFormsApp1
             this.panel.Size = new System.Drawing.Size(479, 550);
             this.panel.TabIndex = 0;
             this.panel.TabStop = false;
+            this.panel.Click += new System.EventHandler(this.panel_Click);
             // 
             // groupBox2
             // 

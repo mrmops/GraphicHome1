@@ -16,7 +16,10 @@ namespace WindowsFormsApp1
 
         public void Update(Graphics g)
         {
-            TransformDrawAndResetTransform(g, DrawFigure);
+            lock(g)
+            {
+                TransformDrawAndResetTransform(g, DrawFigure);
+            }
         }
 
         public void Hide(Graphics g, Color backColor)

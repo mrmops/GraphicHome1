@@ -28,5 +28,10 @@
         {
             return $"{X}, {Y}, {Z}";
         }
+        
+        public static Point3D operator +(Point3D a, Point3D b)
+        {
+            return new Point3D(a.X + b.X, a.Y + b.Y, a.Z + b.Z);
+        }
     }
 }

@@ -4,7 +4,7 @@ namespace WindowsFormsApp1
 {
     public interface IInput
     {
-        void ParseInput();
+        void SubmitData();
 
         Control[] GetControls();
         
